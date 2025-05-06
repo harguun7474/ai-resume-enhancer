@@ -1,6 +1,6 @@
 'use client';
 
-import { FileHandler } from '../components/FileHandler';
+import FileHandler from '../components/FileHandler';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
