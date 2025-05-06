@@ -96,6 +96,10 @@ const App: React.FC = () => {
               </p>
               <div className="max-w-xl mx-auto">
                 <FileHandler
+                  onError={(error) => {
+                    console.error('Error:', error);
+                    setError(error instanceof Error ? error.message : 'An unexpected error occurred');
+                  }}
                   onContentExtracted={handleContentExtracted}
                   onImprovementResult={handleImprovementResult}
                 />
