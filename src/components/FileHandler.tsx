@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import { improveResume } from '../services/apiService';
-import { AlertCircle, X } from 'lucide-react';
 
 interface FileHandlerProps {
   onContentExtracted: (content: string, fileType: string, fileName: string) => void;
@@ -85,7 +84,7 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onContentExtracted, onImprove
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg relative">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+            <div className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0">⚠️</div>
             <div className="flex-1">
               <p className="text-red-600 font-medium">Error</p>
               <p className="text-red-500 text-sm mt-1">{error}</p>
@@ -94,7 +93,7 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onContentExtracted, onImprove
               onClick={() => setError(null)}
               className="text-red-400 hover:text-red-500 transition-colors"
             >
-              <X className="w-4 h-4" />
+              ✕
             </button>
           </div>
         </div>
@@ -109,20 +108,9 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onContentExtracted, onImprove
         onDrop={handleDrop}
       >
         <div className="mb-6">
-          <svg
-            className="mx-auto h-12 w-12 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-            />
-          </svg>
+          <div className="mx-auto h-12 w-12 text-gray-400">
+            📄
+          </div>
         </div>
         
         <h3 className="text-lg font-medium text-gray-900 mb-2">
