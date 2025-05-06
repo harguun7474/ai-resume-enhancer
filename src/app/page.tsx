@@ -1,22 +1,31 @@
+'use client';
+
 import { FileHandler } from '../components/FileHandler';
+import { useState, useEffect } from 'react';
 
-async function getInitialData() {
-  try {
-    const response = await fetch('https://polishai-airesumeenhancerrxlfzg-3zn9igg4t.vercel.app/api/health', {
-      cache: 'no-store'
-    });
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching initial data:', error);
-    return {
-      message: 'Service is currently unavailable',
-      status: 'error'
+export default function Home() {
+  const [initialData, setInitialData] = useState<{ message: string; status: string } | null>(null);
+
+  // Fetch initial data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://polishai-airesumeenhancerrxlfzg-3zn9igg4t.vercel.app/api/health', {
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        setInitialData(data);
+      } catch (error) {
+        console.error('Error fetching initial data:', error);
+        setInitialData({
+          message: 'Service is currently unavailable',
+          status: 'error'
+        });
+      }
     };
-  }
-}
 
-export default async function Home() {
-  const initialData = await getInitialData();
+    fetchData();
+  }, []);
 
   return (
     <main className="container mx-auto px-4 py-8">
