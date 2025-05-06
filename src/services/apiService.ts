@@ -1,4 +1,4 @@
-const API_URL = 'https://polishai-airesumeenhancerrxlfzg-3lbsjj2qi.vercel.app';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ai-resume-enhancer-backend.vercel.app';
 
 export interface ImprovementResult {
   originalContent: string;
