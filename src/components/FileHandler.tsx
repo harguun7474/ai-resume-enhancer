@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useCallback } from 'react';
 import { improveResume } from '../services/apiService';
 import { AlertCircle, X } from 'lucide-react';
