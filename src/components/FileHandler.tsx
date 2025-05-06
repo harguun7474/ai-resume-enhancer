@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import { improveResume } from '../services/apiService';
 
 interface FileHandlerProps {
+  onError: (error: any) => void;
   onContentExtracted: (content: string, fileType: string, fileName: string) => void;
   onImprovementResult: (result: {
     originalContent: string;
@@ -14,7 +15,7 @@ interface FileHandlerProps {
   }) => void;
 }
 
-const FileHandler: React.FC<FileHandlerProps> = ({ onContentExtracted, onImprovementResult }) => {
+const FileHandler: React.FC<FileHandlerProps> = ({ onError, onContentExtracted, onImprovementResult }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,11 +54,13 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onContentExtracted, onImprove
       });
     } catch (error) {
       console.error('Error processing file:', error);
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.';
+      setError(errorMessage);
+      onError(error);
     } finally {
       setIsProcessing(false);
     }
-  }, [onContentExtracted, onImprovementResult]);
+  }, [onContentExtracted, onImprovementResult, onError]);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
