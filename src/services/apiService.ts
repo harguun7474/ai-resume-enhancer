@@ -4,6 +4,9 @@ export interface ImprovementResult {
   originalContent: string;
   improvedContent: string;
   suggestions: string[];
+  images?: any[];
+  metadata?: any;
+  html?: string;
 }
 
 export interface ApiError {
