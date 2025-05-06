@@ -1,9 +1,10 @@
-import OpenAI from 'openai';
+import { Configuration, OpenAIApi } from 'openai';
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true // Note: In production, this should be handled by a backend
+const configuration = new Configuration({
+  apiKey: process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY,
 });
+
+const openai = new OpenAIApi(configuration);
 
 export interface ImprovementResult {
   improvedContent: string;
@@ -65,5 +66,21 @@ ${improvedContent}`
   } catch (error) {
     console.error('Error improving resume:', error);
     throw new Error('Failed to improve resume. Please try again.');
+  }
+};
+
+export const enhanceResume = async (resumeText: string) => {
+  try {
+    const response = await openai.createCompletion({
+      model: "deepseek-coder-33b-instruct",
+      prompt: `Please enhance the following resume with better wording and formatting:\n\n${resumeText}`,
+      max_tokens: 1000,
+      temperature: 0.7,
+    });
+
+    return response.data.choices[0].text?.trim() || '';
+  } catch (error) {
+    console.error('Error enhancing resume:', error);
+    throw new Error('Failed to enhance resume');
   }
 }; 
