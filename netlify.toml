@@ -5,10 +5,5 @@
 [build.environment]
   NEXT_PUBLIC_API_URL = "https://ai-resume-enhancer-backend.vercel.app"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
 [[plugins]]
   package = "@netlify/plugin-nextjs" 
